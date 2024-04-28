@@ -101,12 +101,10 @@ def show(text):
         displayStr=''.join(data)
         display.config(text=displayStr)
     if len(data)!=0 and (text=='+' or text=='-' or text=='x' or text=='/' or text=='%'):
-        if(data[-1]=='+' or data[-1]=='/' or data[-1]=='x' or data[-1]=='-'):
-            # data.pop()
-            # data.append(text)
-            # displayStr=''.join(data)
-            # display.config(text=displayStr)
-            data[-1]=text
+        if(data[-2]=='+' or data[-2]=='/' or data[-2]=='x' or data[-2]=='-'):
+            data[-2]=text
+            displayStr=''.join(data)
+            display.config(text=displayStr)
         else:
             data.append(" ")
             data.append(text)
