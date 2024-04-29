@@ -78,6 +78,9 @@ def inToPost(data):
             elif i=='-':
                 op[-2]=float(op[-2])-float(op[-1])
                 op.pop()
+            elif i=='%':
+                op[-2]=float(op[-2])%float(op[-1])
+                op.pop()
             else:
                 op.append(i)
     ans=op.pop()
@@ -100,19 +103,54 @@ def show(text):
             display.config(text=displayStr)
 
     if text>='0' and text<='9':
-        data.append(text)
-        displayStr=''.join(data)
-        display.config(text=displayStr)
+        if(len(data)==1):
+            if data[0][-1]=='.':
+                data[0]=data[0]+text
+                displayStr=''.join(data)
+                display.config(text=displayStr)
+            else:
+                data.append(text)
+                displayStr=''.join(data)
+                display.config(text=displayStr)
+        elif(len(data)>1):
+            if(data[-1][-1])=='.':
+                data[-1]=data[-1]+text
+                displayStr=''.join(data)
+                display.config(text=displayStr)
+            else:
+                data.append(text)
+                displayStr=''.join(data)
+                display.config(text=displayStr)
+        else:
+            data.append(text)
+            displayStr=''.join(data)
+            display.config(text=displayStr)
 
     if len(data)==1 and (text=='+' or text=='-' or text=='x' or text=='/' or text=='%'):
-        data.append(" ")
-        data.append(text)
-        data.append(" ")
-        displayStr=''.join(data)
-        display.config(text=displayStr)
+        if((data[0]))[-1]=='.':
+            data[0]=data[0]+'0'
+            data.append(" ")
+            data.append(text)
+            data.append(" ")
+            displayStr=''.join(data)
+            display.config(text=displayStr)
+        else:
+            data.append(" ")
+            data.append(text)
+            data.append(" ")
+            displayStr=''.join(data)
+            display.config(text=displayStr)
 
     if len(data)>1 and (text=='+' or text=='-' or text=='x' or text=='/' or text=='%'):
-        if(data[-2]=='+' or data[-2]=='/' or data[-2]=='x' or data[-2]=='-'):
+        if(data[-1])[-1]=='.':
+            data[-1]=data[-1]+'0'
+            data.append(" ")
+            data.append(text)
+            data.append(" ")
+            displayStr=''.join(data)
+            display.config(text=displayStr)
+
+        elif(data[-2]=='+' or data[-2]=='/' or data[-2]=='x' or data[-2]=='-'):
             data[-2]=text
             displayStr=''.join(data)
             display.config(text=displayStr)
@@ -132,6 +170,29 @@ def show(text):
         displayStr=''.join(data)
         display.config(text=displayStr)
 
+    elif len(data)==0 and text=='.':
+        data.append("0.")
+        displayStr=''.join(data)
+        display.config(text=displayStr)
+    
+    elif len(data)==1 and text=='.':
+         if '.' in data[0]:
+             pass
+         elif '.' not in data[0]:
+             a=data[0]
+             data[0]=a+'.'
+             displayStr=''.join(data)
+             display.config(text=displayStr)
+    elif len(data)>1 and text=='.':
+        if(data[-1]==' '):
+            data.append['0.']
+            displayStr=''.join(data)
+            display.config(text=displayStr)
+        else:
+            data[-1]=data[-1]+'.'
+            displayStr=''.join(data)
+            display.config(text=displayStr)
+    
     if(text=='='):
         ans=inToPost(data)
         display.config(text=ans)
