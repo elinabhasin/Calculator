@@ -30,8 +30,10 @@ for i in range(4):
 data=[]
 
 def inToPost(data):
+    
     ex=[]
     op=[]
+
     for i in data:
         if(i>='0' and i<='9'):
             ex.append(i)
@@ -55,11 +57,15 @@ def inToPost(data):
                     op.append(i)
             else:
                 op.append(i)
+
     while(len(op)>0):
         a=op.pop()
         ex.append(a)
+
     print(ex)
+
     op=[]
+
     for i in ex:
         if i>='0' and i<='9':
                 # ex.remove(i)
@@ -108,10 +114,12 @@ def show(text):
                 data[0]=data[0]+text
                 displayStr=''.join(data)
                 display.config(text=displayStr)
+
             else:
                 data.append(text)
                 displayStr=''.join(data)
                 display.config(text=displayStr)
+
         elif(len(data)>1):
             if(data[-1][-1])=='.':
                 data[-1]=data[-1]+text
@@ -134,6 +142,7 @@ def show(text):
             data.append(" ")
             displayStr=''.join(data)
             display.config(text=displayStr)
+
         else:
             data.append(" ")
             data.append(text)
@@ -178,16 +187,19 @@ def show(text):
     elif len(data)==1 and text=='.':
          if '.' in data[0]:
              pass
+         
          elif '.' not in data[0]:
              a=data[0]
              data[0]=a+'.'
              displayStr=''.join(data)
              display.config(text=displayStr)
+
     elif len(data)>1 and text=='.':
         if(data[-1]==' '):
             data.append['0.']
             displayStr=''.join(data)
             display.config(text=displayStr)
+
         else:
             data[-1]=data[-1]+'.'
             displayStr=''.join(data)
