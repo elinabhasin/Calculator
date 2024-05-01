@@ -35,10 +35,9 @@ def inToPost(data):
     op=[]
 
     for i in data:
-        if(i>='0' and i<='9'):
+        if(i!='+' and i!='-' and i!='/' and i!='x' and i!='%'):
             ex.append(i)
-        elif i==' ':
-            pass
+
         else:
             if(len(op)!=0):
                 if(op[-1]=='/' or op[-1]=='%' or op[-1]=='/') and (i=='+' or i=='-'):
@@ -57,17 +56,16 @@ def inToPost(data):
                     op.append(i)
             else:
                 op.append(i)
-
     while(len(op)>0):
         a=op.pop()
         ex.append(a)
-
+    print("Ex:")
     print(ex)
 
     op=[]
 
     for i in ex:
-        if i>='0' and i<='9':
+        if i!='+' and i!='-' and i!='/' and i!='%' and i!='x':
                 # ex.remove(i)
             op.append(i)
         else:
@@ -196,7 +194,7 @@ def show(text):
 
     elif len(data)>1 and text=='.':
         if(data[-1]==' '):
-            data.append['0.']
+            data.append('0.')
             displayStr=''.join(data)
             display.config(text=displayStr)
 
@@ -206,7 +204,21 @@ def show(text):
             display.config(text=displayStr)
     
     if(text=='='):
-        ans=inToPost(data)
+        temp=''
+        data1=[]
+        for i in data:
+            if i!=' ' and (i!='+' or i!='-' or i!='/' or i!='x' or i!='%'):
+                temp=temp+i
+            elif i==' ' and data[data.index(i)+1]=='+' or data[data.index(i)+1]=='-' or data[data.index(i)+1]=='/' or data[data.index(i)+1]=='%' or data[data.index(i)+1]=='x':
+                data1.append(temp)
+                temp=''
+            elif i==' ' and data[data.index(i)+1]!='+' or data[data.index(i)+1]!='-' or data[data.index(i)+1]!='/' or data[data.index(i)+1]!='%' or data[data.index(i)+1]!='x':
+                pass
+            elif i=='+' or i=='-' or i=='/' or i=='%' or i=='x':
+                data1.append(i)
+        data1.append(temp)
+        print(data1)
+        ans=inToPost(data1)
         display.config(text=ans)
         return
 
