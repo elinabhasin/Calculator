@@ -163,10 +163,41 @@ def show(text):
             data.pop()
             displayStr=''.join(data)
             display.config(text=displayStr)
-    if (text>='0' and text<='9') or text=='.':
+    if (text>='0' and text<='9'):
         data.append(text)
         displayStr=''.join(data)
         display.config(text=displayStr)
+    if text=='.':
+        if len(data)==0:
+            data.append(text)
+            displayStr=''.join(data)
+            display.config(text=displayStr)
+        elif len(data)<4:
+            if '.' not in data:
+                data.append(text)
+                displayStr=''.join(data)
+                display.config(text=displayStr)
+        else:
+            if data[-1]==' ':
+                data.append(text)
+                displayStr=''.join(data)
+                display.config(text=displayStr)
+            else:
+                count=0
+                i=len(data)-1
+                while i!=0:
+                    if data[i]=='.':
+                        count=1
+                        break
+                    if data[i]==' ':
+                        break
+                    i=i-1
+                if count==1:
+                    pass
+                else:
+                    data.append(text)
+                    displayStr=''.join(data)
+                    display.config(text=displayStr)
     if len(data)>=2 and (text=='+' or text=='-' or text=='x' or text=='/' or text=='^'):
         if(data[-2]=='+' or data[-2]=='/' or data[-2]=='x' or data[-2]=='-' or data[-2]=='^'):
             data.pop()
@@ -213,3 +244,4 @@ def show(text):
         return Data
 
 root.mainloop()
+
